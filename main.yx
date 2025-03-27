@@ -1,0 +1,26 @@
+class main
+{
+    def void main()
+    {
+        print "hello";
+    }
+}
+//hehehe
+/*
+expected output
+CLASS
+NAME
+OPEN_BLOCK
+FUNCTION
+VOID
+NAME
+OPEN_PAREN
+CLOSE_PAREN
+OPEN_BLOCK
+PRINT
+STRING
+ENDLINE
+CLOSE_BLOCK
+CLOSE_BLOCK
+//mwuahhahahaha
+*/
