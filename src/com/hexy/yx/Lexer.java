@@ -8,6 +8,16 @@ import java.util.Scanner;
 public class Lexer
 {
     private ArrayList<Token> tokens;
+    private boolean isString;
+    private boolean isMLComment;
+
+    public void printTokens()
+    {
+        for(Token t : tokens)
+        {
+            System.out.println(t);
+        }
+    }
 
     private void addToken(Tokens token, String data)
     {
@@ -24,6 +34,40 @@ public class Lexer
             for(int i = 0; i < line.length(); i++)
             {
                 chars.append(line.charAt(i));
+                if(chars.toString().strip().equals("//"))
+                {
+                    chars = new StringBuilder();
+                    break;
+                }
+                if(chars.toString().strip().equals("/*"))
+                {
+                    chars = new StringBuilder();
+                    isMLComment = true;
+                }
+                if(chars.toString().strip().substring(chars.length() - 2).equals("*/"))
+                {
+                    isMLComment = false;
+                    chars = new StringBuilder();
+                }
+                if(isMLComment)
+                    continue;
+                if(chars.toString().equals("\""))
+                {
+                    isString = false;
+                }
+                if(isString)
+                {
+                    if(chars.substring(chars.length() - 1).equals("\""))
+                    {
+                        isString = false;
+                        addToken(Tokens.STRING, chars.toString());
+                        chars = new StringBuilder();
+                    }
+                    else
+                        continue;
+                }
+
+                //do the rest of the stuff
             }
         }
     }
